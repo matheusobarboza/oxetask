@@ -22,8 +22,7 @@ export function AppRoutes(){
         name="Task" 
         component={Task}
         options={{
-          title: 'Tarefas',
-          headerTintColor: '#F96E46',
+          headerShown: false,
         }}
       />
       <Stack.Screen 

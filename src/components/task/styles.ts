@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,11 +6,29 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F2EDEB',
     paddingTop: 20,
   },
+  headerTask: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '13%',
+    borderBottomColor: '#575762',
+    borderBottomWidth: 1,
+  },
+  headerTitle: {
+    fontSize: 30,
+    color: '#d1d1d1',
+    fontWeight: 'bold',
+  },
   shadowProp: {
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   btnIcon: {
     color: '#fff',
@@ -22,35 +40,33 @@ export const styles = StyleSheet.create({
     height: 60,
     position: 'absolute',
     bottom: 30,
-    right: 20,
-    backgroundColor: '#F96E46',
+    left: (Dimensions.get('window').width / 2) - 25,
+    backgroundColor: '#17E0BC',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
   containerTasks: {
-    width: '100%',
-    marginTop: 5,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: '#fff',
+    height: 100,
+    marginBottom: 15,
+    borderRadius: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-  },
-  descriptionTask: {
-    width: '90%',
-    alignContent: 'flex-start',
-    backgroundColor: '#f5f5f5',
-    padding: 12,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    marginBottom: 5,
-    fontWeight: '500',
-    color: '#1C0221',
+    paddingLeft: 20,
   },
   btnDeleteTasks: {
     width: 50,
-    height: 50,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  containerIcons: {
+    flexDirection: 'row',
+    height: '100%',
   },
 })

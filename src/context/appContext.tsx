@@ -13,6 +13,7 @@ interface IAppContext {
   tasks: Task[]
   // storageUser: (data: IUser) => void
   setTasks: (tasks: Task[]) => void
+  loadTasks: () => void
 }
 
 interface IProps {
@@ -27,26 +28,27 @@ export const AppProvider = ({ children }: IProps) => {
   const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
-    const loadTasks = async () => {
-      const tasksList: Task[] = []
-      const tasksCollection = collection(db, 'tasks')
-      const tasksSnapshot = await getDocs(tasksCollection)
-      
-      tasksSnapshot.forEach((doc) => {
-        const data = doc.data()
-        tasksList.push({ taskId: doc.id, description: data.description || '', status: data.status })
-      })
-
-      setTasks(tasksList)
-    }
-
     loadTasks()
   }, [])
+
+  const loadTasks = async () => {
+    const tasksList: Task[] = []
+    const tasksCollection = collection(db, 'tasks')
+    const tasksSnapshot = await getDocs(tasksCollection)
+    
+    tasksSnapshot.forEach((doc) => {
+      const data = doc.data()
+      tasksList.push({ taskId: doc.id, description: data.description || '', status: data.status })
+    })
+
+    setTasks(tasksList)
+  }
 
   return (
     <AppContext.Provider value={{
       tasks,
       setTasks,
+      loadTasks,
     }}>
       {children}
     </AppContext.Provider>
