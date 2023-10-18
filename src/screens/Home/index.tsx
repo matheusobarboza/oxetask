@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Text, TouchableOpacity, View, FlatList } from "react-native"
 import Ionicons from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from "@react-navigation/native";
@@ -24,6 +24,9 @@ export default function Home() {
     await deleteDoc(doc(db, "tasks", id))
       .then(() => {
         loadTasks()
+      })
+      .catch(error => {
+        alert('Falha ao excluir task!')
       })
     setIsLoading(false)
   }
