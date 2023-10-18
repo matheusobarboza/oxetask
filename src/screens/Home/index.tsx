@@ -6,18 +6,20 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamsList } from "../../routes/app.routes";
 import { useAppContext } from "../../context/hook";
 import { Task as ITask } from "../../interfaces/task";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebaseConnection";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { HeaderTask } from "../../components/Header";
 import { styles } from "../../components/generics/styles";
 import { stylesHome } from "../../components/home/styles";
+import { EmptyTasksList } from "../../components/home/EmptytasksList";
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamsList>>();
-  const [isLoading, setIsLoading] = useState(false)
-
   const { tasks, loadTasks } = useAppContext()
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [isConcluded, setIsConcluded] = useState(false)
 
   const deleteTask = async (id: string) => {
     setIsLoading(true)
@@ -42,6 +44,7 @@ export default function Home() {
         style={{ paddingTop: 20, maxHeight: '72%' }}
         showsVerticalScrollIndicator={false}
         data={tasks}
+        ListEmptyComponent={<EmptyTasksList />}
         renderItem={({ item }: { item: ITask }) => (
           <View style={[stylesHome.containerTasks, styles.shadowProp]}>
             <BouncyCheckbox
@@ -50,7 +53,18 @@ export default function Home() {
               unfillColor="#FFFFFF"
               innerIconStyle={{ borderWidth: 3, borderColor: '#e1e1e1' }}
               isChecked={item.concluded}
-              onPress={(isChecked: boolean) => {}}
+              onPress={async (isChecked: boolean) => {
+                const task = doc(db, "tasks", item.taskId)
+                await updateDoc(task, {
+                  concluded: isChecked,
+                })
+                .then(() => {
+                  loadTasks()
+                })
+                .catch(error => {
+                  alert('Falha ao atualizar task!')
+                })
+              }}
             />
             <View style={stylesHome.containerDescription}>
               <Text>{item.emoji}</Text>

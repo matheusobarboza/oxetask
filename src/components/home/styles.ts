@@ -53,4 +53,14 @@ export const stylesHome = StyleSheet.create({
     color: '#000',
     maxWidth: 150,
   },
+  containerEmpty: {
+    gap: 10,
+    height: '100%',
+    alignItems: 'center',
+  },
+  textEmpty: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#575762',
+  },
 })
