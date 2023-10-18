@@ -1,16 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import Task from "../screens/Task";
-import { Details } from "../screens/Details";
-import { NewTask } from "../screens/NewTask";
+import { Task } from "../screens/Task";
+import Home from "../screens/Home";
 
 export type StackParamsList = {
-  Task: undefined;
-  Details: {
+  Home: undefined;
+  Task: {
     taskId: string,
-    description: string,
+    description?: string,
+    emoji?: string
   };
-  NewTask: undefined;
 }
 
 const Stack = createNativeStackNavigator<StackParamsList>();
@@ -19,28 +18,19 @@ export function AppRoutes(){
   return(
     <Stack.Navigator>
       <Stack.Screen 
-        name="Task" 
-        component={Task}
+        name="Home" 
+        component={Home}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen 
-        name="Details"
-        component={Details}
+        name="Task"
+        component={Task}
         options={{
-          title: 'Detalhes',
-          headerStyle: {
-            backgroundColor: '#1d1d2e'
-          },
-          headerTintColor: '#fff'
+          headerShown: false,
         }}
       />
-      <Stack.Screen 
-        name="NewTask" 
-        component={NewTask}
-      />
-
     </Stack.Navigator>
   )
 }

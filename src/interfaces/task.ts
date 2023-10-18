@@ -1,5 +1,6 @@
 export interface Task {
   taskId: string
   description: string
-  status: boolean
+  emoji: string
+  concluded: boolean
 }

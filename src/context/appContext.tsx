@@ -2,7 +2,6 @@
 
 import { createContext, useEffect, useState } from "react"
 import { db } from '../services/firebaseConnection'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
@@ -11,7 +10,6 @@ import { Task } from "../interfaces/task"
 
 interface IAppContext {
   tasks: Task[]
-  // storageUser: (data: IUser) => void
   setTasks: (tasks: Task[]) => void
   loadTasks: () => void
 }
@@ -38,7 +36,7 @@ export const AppProvider = ({ children }: IProps) => {
     
     tasksSnapshot.forEach((doc) => {
       const data = doc.data()
-      tasksList.push({ taskId: doc.id, description: data.description || '', status: data.status })
+      tasksList.push({ taskId: doc.id, description: data.description || '', emoji: data.emoji || '', concluded: data.concluded })
     })
 
     setTasks(tasksList)

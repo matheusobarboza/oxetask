@@ -8,13 +8,12 @@ export default function App() {
     <NavigationContainer>
       <AppProvider>
         <StatusBar
-          style="light"
-          backgroundColor="#1d1d2e"
+          style="dark"
+          backgroundColor="#fff"
           translucent={false}
         />
         <Routes />
       </AppProvider>
     </NavigationContainer>
-
   );
 }
